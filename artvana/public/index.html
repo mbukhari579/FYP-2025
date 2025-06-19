@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artvana - Art Marketplace</title>
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Global Styles */
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #343a40;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #ffc107;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ffc107;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1569317002804-ab77bcf1bce4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #ffc107;
+            color: #333;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #ffca28;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Art Gallery */
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: #666;
+            font-size: 18px;
+        }
+
+        .art-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .art-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .art-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .art-img {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .art-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .art-card:hover .art-img img {
+            transform: scale(1.1);
+        }
+
+        .art-info {
+            padding: 20px;
+        }
+
+        .art-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .artist-name {
+            color: #666;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .art-price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .bid-form {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .bid-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .bid-btn {
+            background-color: #343a40;
+            color: white;
+            border: none;
+            padding: 0 15px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .bid-btn:hover {
+            background-color: #ffc107;
+            color: #333;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 10px;
+            background-color: #ffc107;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: #ffca28;
+        }
+
+        /* Upload Form */
+        .upload-section {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 50px;
+            display: none;
+        }
+
+        .upload-section h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .upload-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .upload-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Auth Modal */
+        .auth-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .auth-modal:target {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .auth-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            color: #666;
+            text-decoration: none;
+        }
+
+        .close-modal:hover {
+            color: #333;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            color: #666;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            color: #343a40;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #ffc107;
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .auth-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .auth-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .auth-form input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #343a40;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .auth-btn:hover {
+            background-color: #ffc107;
+            color: #333;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-footer a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .form-footer a:hover {
+            color: #343a40;
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: #ffc107;
+        }
+
+        .copyright {
+            color: #adb5bd;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 5px 10px;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .art-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .auth-container {
+                padding: 30px 20px;
+                margin: 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">Art<span>vana</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#upload-section">Upload Art</a></li>
+                    <li><a href="#auth-modal">Sign In</a></li>
+                    <li><a href="#">My Account</a></li>
+                    <li><a href="#">Cart (0)</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Discover & Collect Unique Art</h1>
+            <p>Join our community of artists and art lovers</p>
+            <a href="#auth-modal" class="btn">Join Now</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Upload Art Form -->
+        <section class="upload-section" id="upload-section">
+            <h3>Upload Your Artwork</h3>
+            <form id="art-upload-form">
+                <div class="form-group">
+                    <label for="art-title">Artwork Title</label>
+                    <input type="text" id="art-title" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="artist-name">Artist Name</label>
+                    <input type="text" id="artist-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="art-description">Description</label>
+                    <textarea id="art-description" class="form-control" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="art-price">Starting Price ($)</label>
+                    <input type="number" id="art-price" class="form-control" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="art-image">Upload Image</label>
+                    <input type="file" id="art-image" class="form-control" accept="image/*" required>
+                </div>
+                <button type="submit" class="upload-btn">Upload Artwork</button>
+            </form>
+        </section>
+
+        <!-- Art Gallery -->
+        <section>
+            <div class="section-title">
+                <h2>Featured Artworks</h2>
+                <p>Discover unique pieces from talented artists around the world</p>
+            </div>
+
+            <div class="art-grid">
+                <!-- Artwork 1 -->
+                <div class="art-card">
+                    <div class="art-img">
+                        <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Abstract Painting">
+                    </div>
+                    <div class="art-info">
+                        <h3 class="art-title">Cosmic Harmony</h3>
+                        <span class="artist-name">by Sarah Johnson</span>
+                        <div class="art-price">$450</div>
+                        <form class="bid-form">
+                            <input type="number" class="bid-input" placeholder="Your bid" min="451">
+                            <button type="submit" class="bid-btn">Bid</button>
+                        </form>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Artwork 2 -->
+                <div class="art-card">
+                    <div class="art-img">
+                        <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Portrait Painting">
+                    </div>
+                    <div class="art-info">
+                        <h3 class="art-title">Silent Thoughts</h3>
+                        <span class="artist-name">by Michael Chen</span>
+                        <div class="art-price">$320</div>
+                        <form class="bid-form">
+                            <input type="number" class="bid-input" placeholder="Your bid" min="321">
+                            <button type="submit" class="bid-btn">Bid</button>
+                        </form>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Artwork 3 -->
+                <div class="art-card">
+                    <div class="art-img">
+                        <img src="https://images.unsplash.com/photo-1531913764164-f85c52e6e654?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Landscape Painting">
+                    </div>
+                    <div class="art-info">
+                        <h3 class="art-title">Mountain Dreams</h3>
+                        <span class="artist-name">by Emma Wilson</span>
+                        <div class="art-price">$275</div>
+                        <form class="bid-form">
+                            <input type="number" class="bid-input" placeholder="Your bid" min="276">
+                            <button type="submit" class="bid-btn">Bid</button>
+                        </form>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Artwork 4 -->
+                <div class="art-card">
+                    <div class="art-img">
+                        <img src="https://images.unsplash.com/photo-1578301978018-3005759f48f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Modern Art">
+                    </div>
+                    <div class="art-info">
+                        <h3 class="art-title">Urban Flow</h3>
+                        <span class="artist-name">by David Kim</span>
+                        <div class="art-price">$390</div>
+                        <form class="bid-form">
+                            <input type="number" class="bid-input" placeholder="Your bid" min="391">
+                            <button type="submit" class="bid-btn">Bid</button>
+                        </form>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="auth-modal">
+        <div class="auth-container">
+            <a href="#" class="close-modal">&times;</a>
+            
+            <div class="auth-tabs">
+                <a href="#signin-tab" class="tab-btn active">Sign In</a>
+                <a href="#signup-tab" class="tab-btn">Sign Up</a>
+            </div>
+            
+            <!-- Sign In Form -->
+            <form id="signin-form" class="auth-form active" action="#" method="POST">
+                <div class="form-group">
+                    <label for="signin-email">Email</label>
+                    <input type="email" id="signin-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signin-password">Password</label>
+                    <input type="password" id="signin-password" required>
+                </div>
+                <button type="submit" class="auth-btn">Sign In</button>
+                <div class="form-footer">
+                    <a href="#forgot-password">Forgot password?</a>
+                </div>
+            </form>
+            
+            <!-- Sign Up Form -->
+            <form id="signup-form" class="auth-form" action="#" method="POST">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm">Confirm Password</label>
+                    <input type="password" id="signup-confirm" required>
+                </div>
+                <button type="submit" class="auth-btn">Create Account</button>
+                <div class="form-footer">
+                    Already have an account? <a href="#signin-tab">Sign In</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="auth-modal" id="forgot-password">
+        <div class="auth-container">
+            <a href="#" class="close-modal">&times;</a>
+            <h2>Reset Password</h2>
+            <form id="forgot-form" class="auth-form" action="#" method="POST">
+                <div class="form-group">
+                    <label for="forgot-email">Email</label>
+                    <input type="email" id="forgot-email" required>
+                </div>
+                <button type="submit" class="auth-btn">Reset Password</button>
+                <div class="form-footer">
+                    <a href="#signin-tab">Back to Sign In</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tab Switching with :target -->
+    <div id="signin-tab"></div>
+    <div id="signup-tab"></div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">About Us</a>
+                <a href="#">Contact</a>
+                <a href="#">Terms</a>
+                <a href="#">Privacy</a>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Artvana. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
